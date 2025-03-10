@@ -1,5 +1,5 @@
 # Mikrotik
-tutoria de mikrotik
+tutorial de mikrotik
 Redes Mikrotik 
 
 
