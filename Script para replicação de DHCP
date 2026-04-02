@@ -1,1 +1,33 @@
-# VRRP Protocolo de alta disponibilidade que executa um script que verificar quando ele se torna master ou BKP  (8:00) 
+# VRRP Protocolo de alta disponibilidade que executa um script que verificar quando ele se torna master ou BKP  
+
+#Script Obtido na REDE BRASIL
+
+:if ($leaseBound = "1") do={
+
+    # Verifica se já existe um lease estático com o mesmo MAC
+    :local leaseExists [/ip dhcp-server lease find where mac-address=$leaseActMAC and !dynamic]
+    
+    :if ([:len $leaseExists] = 0) do={
+        # Adiciona um lease estático localmente
+        /ip dhcp-server lease add address=$leaseActIP mac-address=$leaseActMAC server=$leaseServerName
+    }
+
+    # Dados para o roteador remoto
+    :local remoteIP "10.20.20.2"
+    :local remotePort "64780"
+
+    # Credenciais codificadas em Base64
+    :local credentials64 "YWRtaW46dGVzdGUxMjM="
+
+    # Prepara a URL para a API REST
+    :local url "http://$remoteIP:$remotePort/rest/ip/dhcp-server/lease/add"
+
+    # Prepara os dados em formato JSON
+    :local jsonData "{ \"address\": \"$leaseActIP\", \"mac-address\": \"$leaseActMAC\", \"server\": \"all\" }"
+
+    # Prepara os headers HTTP
+    :local httpHeaders ("Content-Type: application/json", "Authorization: Basic $credentials64")
+
+    # Envia a requisição POST usando o fetch
+    /tool fetch url=$url http-method=post http-data=$jsonData http-header-field=$httpHeaders output=none
+}
