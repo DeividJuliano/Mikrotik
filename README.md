@@ -58,11 +58,11 @@ no hotmail, sincronizar e-mail, ativar imap e pop e os parametros colocar no Mik
 tool>email>configure de acordo com as especificações ex gmail> server:64.233.186.108(google)
 port:587
 start tls: yes
-from: metaldeivid37@hotmail.com
+from: metaldeivid@hotmail.com
 user: pode ser o email
 password: senha do seu email
 >aplicar>send email (script para email : tool e-mail send
-to=metaldeivid37@hotmail.com
+to=metaldeivid@hotmail.com
 subject=bkp diário body=hoje
 file=bkp_03122023)>run script
 
@@ -86,7 +86,7 @@ PC VPC 10.10.10.254
 
 Objetivo lan dos routes se comunicarem
 Configurando a matriz, ele será o servidor vpn, as outras redes irão se conectar nele. É necessário um ip público
-R1>ppp> interface>pptpserver>enable ok>profiles>+nomeie,local address insira um ip privado(para várias filiais filiais crie uma ip pool>ip>ip pool>+escolha a faixa de ip, 10.30.10.2-10.30.10.200 nomeie e ok).continuando use a pool no remote address e ok.
+R1>ppp> interface>pptpserver>enable ok>profiles>+nomeie, local address insira um ip privado(para várias filiais filiais crie uma ip pool>ip>ip pool>+escolha a faixa de ip, 10.30.10.2-10.30.10.200 nomeie e ok).continuando use a pool no remote address e ok.
 
 >ppp>secret>+>Name e senha para sua VPN,service escolha o pptp, profile da VPN que você criou aplicar e ok.. 
 
@@ -96,6 +96,11 @@ Agora é necessário configurar rotas, para os pcs (linux e vpc) se comunicarem
 R2>ip>routes>+>Dst.Address:192.168.1.0/24(lan da onde vc quer acessar e o gateway é a vpn ‘pptpMatriz’) ok. teste para que haja o ping para a rede da matriz.
 
 R1>ip>routes>+>Dst.Address:10.30.10.0/24(lan da onde vc que acessar e o gateway é a vpn “pptpMatriz”)
+
+
+Dicas para resolver problemas com VPN
+Use Vpn Layer3, redes diferentes, VPN server, active Connections devem está ativas, as rotas de ida e volta devem está configuradas. Ex. Configuarar para matriz comunicar com a filial. RMatriz Ip, routes, +, General, Dst.Addres 10.10.10.0/24 Gateway 10.200.200.1 
+Filial comunicar com a matriz Rfilia1  Ip, routes, +, General, Dst.Addres 10.5.5.0/24 Gateway 10.200.200.200. Faça os testes de ping 10.10.10.10 (6:10)
 
 Failover com netwatch
 
