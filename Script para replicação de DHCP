@@ -1,4 +1,6 @@
-# VRRP Protocolo de alta disponibilidade que executa um script que verificar quando ele se torna master ou BKP  
+# VRRP Protocolo de alta disponibilidade que executa um script que verificar quando ele se torna master ou BKP 
+#Esse script é uma automação que distribui ips através de 2 roteadores de forma reduntante, se um para o outro assume para distribuir ips 
+# Insira o script neste caminho no Mikrotik  Ip, DHCP Server, Network, Script  cole no campo em branco (Leas script)
 
 #Script Obtido na REDE BRASIL
 
