@@ -100,7 +100,20 @@ R1>ip>routes>+>Dst.Address:10.30.10.0/24(lan da onde vc que acessar e o gateway 
 
 Dicas para resolver problemas com VPN
 Use Vpn Layer3, redes diferentes, VPN server, active Connections devem está ativas, as rotas de ida e volta devem está configuradas. Ex. Configuarar para matriz comunicar com a filial. RMatriz Ip, routes, +, General, Dst.Addres 10.10.10.0/24 Gateway 10.200.200.1 
-Filial comunicar com a matriz Rfilia1  Ip, routes, +, General, Dst.Addres 10.5.5.0/24 Gateway 10.200.200.200. Faça os testes de ping 10.10.10.10 (6:10)
+Filial comunicar com a matriz Rfilia1  Ip, routes, +, General, Dst.Addres 10.5.5.0/24 Gateway 10.200.200.200. Faça os testes de ping 10.10.10.10 
+Melhor forma para esse cenário será usar nat. são 4 pcs, 4 roteadores, um na matriz e 3 na filial.
+ Configurando filiais:
+ A VPN é 10:200.200.200(Remote Address) veja em l2tp-out na campo Status, se houver a VPN ele vai está la o endereço que ip que é a rede da vpn, insira no campo gateway do dispositivo que ira se conectar com a vpn
+ Filial2: Ip, Routes, +, General, Dst.Addres 10.5.5.0/24 Gateway 10.200.200.200.
+ Filial3: Ip, Routes, +, General, Dst.Addres 10.5.5.0/24 Gateway 10.200.200.200.  
+
+ Agora se configurado a nat e será inserido um ip ficticio para cada filial (192.168.101.0/24 filial1)  (192.168.102.0/24 filial2)   (192.168.103.0/24 filial3) o Gateway será o remote address de cada filial, 
+ Matriz:  Ip, Routes, +, General, Dst.Addres 192.168.101.0/24 Gateway 10.200.200.201
+  Ip, Routes, +, General, Dst.Addres 192.168.102.0/24 Gateway 10.200.200.202           Ip, Routes, +, General, Dst.Addres 192.168.103.0/24 Gateway 10.200.200.203  (12:10)
+
+
+
+
 
 Failover com netwatch
 
