@@ -107,9 +107,15 @@ Melhor forma para esse cenário será usar nat. são 4 pcs, 4 roteadores, um na 
  Filial2: Ip, Routes, +, General, Dst.Addres 10.5.5.0/24 Gateway 10.200.200.200.
  Filial3: Ip, Routes, +, General, Dst.Addres 10.5.5.0/24 Gateway 10.200.200.200.  
 
- Agora se configurado a nat e será inserido um ip ficticio para cada filial (192.168.101.0/24 filial1)  (192.168.102.0/24 filial2)   (192.168.103.0/24 filial3) o Gateway será o remote address de cada filial, 
- Matriz:  Ip, Routes, +, General, Dst.Addres 192.168.101.0/24 Gateway 10.200.200.201
-  Ip, Routes, +, General, Dst.Addres 192.168.102.0/24 Gateway 10.200.200.202           Ip, Routes, +, General, Dst.Addres 192.168.103.0/24 Gateway 10.200.200.203  (12:10)
+ Agora se configurado a nat e será inserido um ip fictício para cada filial (192.168.101.0/24 filial1)  (192.168.102.0/24 filial2)   (192.168.103.0/24 filial3) o Gateway será o remote address de cada filial. Ou seja ao chegar requisição nos ip fictícios ele será direcionado os ips locais das filiais, será nateado o destino.
+ Matriz:  
+  Ip, Routes, +, General, Dst.Addres 192.168.101.0/24 Gateway 10.200.200.201
+  Ip, Routes, +, General, Dst.Addres 192.168.102.0/24 Gateway 10.200.200.202           
+  Ip, Routes, +, General, Dst.Addres 192.168.103.0/24 Gateway 10.200.200.203  
+Filial1: Ip, Firewall, Nat, +, Chain: dstnat Dst.Address: 192.168.101.0/24 Action: netmap To address: 10.10.10.0/24 Apply, ok
+Filial2: Ip, Firewall, Nat, +, Chain: dstnat Dst.Address: 192.168.102.0/24 Action: netmap To address: 10.10.10.0/24 Apply, ok
+Filial3: Ip, Firewall, Nat, +, Chain: dstnat Dst.Address: 192.168.103.0/24 Action: netmap To address: 10.10.10.0/24 Apply, ok  (19:50)
+  
 
 
 
