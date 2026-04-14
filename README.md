@@ -114,7 +114,10 @@ Melhor forma para esse cenário será usar nat. são 4 pcs, 4 roteadores, um na 
   Ip, Routes, +, General, Dst.Addres 192.168.103.0/24 Gateway 10.200.200.203  
 Filial1: Ip, Firewall, Nat, +, Chain: dstnat Dst.Address: 192.168.101.0/24 Action: netmap To address: 10.10.10.0/24 Apply, ok
 Filial2: Ip, Firewall, Nat, +, Chain: dstnat Dst.Address: 192.168.102.0/24 Action: netmap To address: 10.10.10.0/24 Apply, ok
-Filial3: Ip, Firewall, Nat, +, Chain: dstnat Dst.Address: 192.168.103.0/24 Action: netmap To address: 10.10.10.0/24 Apply, ok  (19:50)
+Filial3: Ip, Firewall, Nat, +, Chain: dstnat Dst.Address: 192.168.103.0/24 Action: netmap To address: 10.10.10.0/24 Apply, ok  
+
+Nessa configuração a rede 10.5.5.0/24 alcança as outras redes porém a rede 10.10.10.0/24 não consegue chegar na 10.5.5.0/24 será necessário natear a origem 
+  Matriz: Ip, Firewall, Nat, +, Chain: srcnat Src.Address: 10.10.10.0/24 Action: netmap To address: 10.10.10.0/24 Apply, ok (20:50)
   
 
 
