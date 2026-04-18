@@ -117,8 +117,9 @@ Filial2: Ip, Firewall, Nat, +, Chain: dstnat Dst.Address: 192.168.102.0/24 Actio
 Filial3: Ip, Firewall, Nat, +, Chain: dstnat Dst.Address: 192.168.103.0/24 Action: netmap To address: 10.10.10.0/24 Apply, ok  
 
 Nessa configuração a rede 10.5.5.0/24 alcança as outras redes porém a rede 10.10.10.0/24 não consegue chegar na 10.5.5.0/24 será necessário natear a origem 
-  Matriz: Ip, Firewall, Nat, +, Chain: srcnat Src.Address: 10.10.10.0/24 Action: netmap To address: 10.10.10.0/24 Apply, ok (20:50)
-  
+  Filial1: Ip, Firewall, Nat, +, Chain: srcnat Src.Address: 10.10.10.0/24 Out.Interface:l2tp-out1(saída pela vpn) Action: netmap To address: 192.168.101.0/24 Apply, ok Faça o teste com ping
+  Filial2: Ip, Firewall, Nat, +, Chain: srcnat Src.Address: 10.10.10.0/24 Out.Interface:l2tp-out1(saída pela vpn) Action: netmap To address: 192.168.102.0/24 Apply, ok 
+  Filial3: Ip, Firewall, Nat, +, Chain: srcnat Src.Address: 10.10.10.0/24 Out.Interface:l2tp-out1(saída pela vpn) Action: netmap To address: 192.168.103.0/24 Apply, ok 
 
 
 
